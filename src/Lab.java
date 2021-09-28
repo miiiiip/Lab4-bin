@@ -4,22 +4,46 @@ import java.util.stream.Collectors;
 
 public class Lab {
 
-    public static final int b = 100;
+    public static int b = 100;
+    public static List<Integer> numbers = new ArrayList<>();
     public static int comparisonCount = 0;
 
     public static void main(String[] args) {
 
-        List<Integer> numbers = Arrays.asList(48, 30, 19, 36, 36, 27, 42, 42, 36, 24, 30);
+        promptUser();
 
         long time1 = System.currentTimeMillis();
-        List<Bin> bins = calc(numbers, b);
-        for (Bin bin : bins){
+        for (Bin bin : calc(numbers, b)){
             System.out.println(bin);
         }
         long time2 = System.currentTimeMillis();
 
         System.out.println("Made " + comparisonCount + " comparisons.");
         System.out.println("Finished in " + (time2 - time1) + " ms.");
+
+    }
+
+    private static void promptUser(){
+        System.out.println("Please enter your input.");
+        String input = new Scanner(System.in).nextLine();
+        String[] split = input.trim().split(" ");
+        if (split.length < 3){
+            System.out.println("Not enough input entered.");
+            promptUser();
+        }
+
+        b = Integer.parseInt(split[0]);
+
+        int number = Integer.parseInt(split[1]);
+
+        if (split.length - 2 != number){
+            System.out.println("Incorrect number of entries entered.");
+            promptUser();
+        }
+
+        numbers = Arrays.stream(split).map(Integer::parseInt)
+                .collect(Collectors.toList())
+                .subList(2, split.length);
     }
     
     private static List<Bin> calc(List<Integer> items, int b){
