@@ -24,7 +24,7 @@ public class Lab {
     }
 
     private static void promptUser(){
-        System.out.println("Please enter your input.");
+        System.out.println("Bin size for first number\nNumber of entries for second number\nEntries to be packed for all following numbers\nUse spaces as delimiters between nums\nPlease enter your input:\n");
         String input = new Scanner(System.in).nextLine();
         String[] split = input.trim().split(" ");
         if (split.length < 3){
@@ -45,7 +45,9 @@ public class Lab {
                 .collect(Collectors.toList())
                 .subList(2, split.length);
     }
-    
+
+    //Algorithm runs here
+    //Uses an array of arrays
     private static List<Bin> calc(List<Integer> items, int b){
         List<Integer> sorted = items.stream()
                 .sorted((o1, o2) -> {
